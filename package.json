@@ -1,0 +1,22 @@
+{
+  "name": "gerador-banner-opentalks",
+  "version": "1.0.0",
+  "description": "Um gerador de banners para Opentalk",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js test.json"
+  },
+  "keywords": [
+    "banner",
+    "nodejs",
+    "opensanca"
+  ],
+  "author": "marcel0ll<marcelo@lotuz.dev>",
+  "license": "MIT",
+  "dependencies": {
+    "@openfonts/montserrat_all": "^1.44.2",
+    "axios": "^0.21.0",
+    "canvas": "^2.6.1",
+    "cheerio": "^1.0.0-rc.3"
+  }
+}

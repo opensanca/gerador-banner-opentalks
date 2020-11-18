@@ -1,0 +1,18 @@
+{
+  "title": "Gerador de imagens:",
+  "subtitle": "Um breve resumo do\nevento com 45 carácteres.",
+  "date": "18 de Novembro",
+  "time": "20:00h",
+  "speaker1": {
+    "name": "Marcelo",
+    "lastname": "Lotufo",
+    "company": "Lotuz",
+    "github": "marcel0ll"
+  },
+  "speaker2": {
+    "name": "Davi",
+    "lastname": "Guelfi",
+    "company": "opensanca",
+    "github": "daviguelfi"
+  }
+}
