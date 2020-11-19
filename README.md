@@ -2,7 +2,7 @@
 
 Esse é um projeto em node.js v14.3.0
 
-Instale as depêndencias
+Instale as dependências
 
 ## Como usar
 
