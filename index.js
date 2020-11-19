@@ -157,7 +157,7 @@ async function processFiles() {
       .replace(/^data:image\/png;base64,/, "");
 
     fs.writeFileSync(
-      path.resolve(eventos, `${date.replace(/\//g, "-")}-${time.replace(/:/g, "")}.png`),
+      path.resolve(eventos, `${date.replace(/(\/| )/g, "-")}-${time.replace(/:/g, "")}.png`),
       base64Data,
       "base64"
     );
