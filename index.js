@@ -54,6 +54,13 @@ async function downloadImage(url, path) {
 
 async function getUserImage(githubHandle) {
   let imgUrl;
+
+  // Se não tiver handle, use imagem de fallback
+  if (!githubHandle || githubHandle === "") {
+    return loadImage("./desconhecido.png");
+  }
+
+  // Se imagem não estiver no cache, minere ela do github e coloque em cache
   let cached = path.resolve(`.cache`, `${githubHandle}.jpeg`);
   if (!fs.existsSync(cached)) {
     const result = await axios(`https://github.com/${githubHandle}`).catch(
@@ -67,6 +74,7 @@ async function getUserImage(githubHandle) {
     await downloadImage(imgUrl, cached);
   }
 
+  // Carregue imagem do cache
   return loadImage(cached);
 }
 
