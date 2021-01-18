@@ -1,18 +1,18 @@
 {
   "title": "2020.08 [Online] - Front",
-  "subtitle": "1 - A ser anuncidao\n2 - A ser anuncidado",
+  "subtitle": "1 - Mocking APIs (18+)\n2 - Velocidade do site",
   "date": "17 de Dezembro",
   "time": "20:00h",
   "speaker1": {
-    "name": "",
-    "lastname": "",
-    "company": "",
-    "github": ""
+    "name": "Rafael",
+    "lastname": "Mariano",
+    "company": "Quanto",
+    "github": "toruticas"
   },
   "speaker2": {
-    "name": "",
-    "lastname": "",
-    "company": "",
-    "github": ""
+    "name": "Marcelo",
+    "lastname": "Lotufo",
+    "company": "Lotuz",
+    "github": "marcel0ll"
   }
 }
