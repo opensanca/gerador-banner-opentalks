@@ -1,0 +1,18 @@
+{
+  "title": "2021.02 [Online]",
+  "subtitle": "1 - Coletando opiniões\n2 - Data Mesh",
+  "date": "25 de Fevereiro",
+  "time": "19:00h",
+  "speaker1": {
+    "name": "1 - Everton",
+    "lastname": "Cherman",
+    "company": "Birdie",
+    "github": "everton"
+  },
+  "speaker2": {
+    "name": "2 - Rafael",
+    "lastname": "Monteiro",
+    "company": "Pipo Saúde",
+    "github": "rafael_monteiro"
+  }
+}
