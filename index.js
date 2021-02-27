@@ -70,7 +70,7 @@ async function getUserImage(githubHandle) {
       }
     );
 
-    imgUrl = $(".avatar.avatar-user.bg-white", result.data).attr("src");
+    imgUrl = $(".avatar.avatar-user", result.data).attr("src");
     await downloadImage(imgUrl, cached);
   }
 
@@ -165,7 +165,10 @@ async function processFiles() {
       .replace(/^data:image\/png;base64,/, "");
 
     fs.writeFileSync(
-      path.resolve(eventos, `${date.replace(/(\/| )/g, "-")}-${time.replace(/:/g, "")}.png`),
+      path.resolve(
+        eventos,
+        `${date.replace(/(\/| )/g, "-")}-${time.replace(/:/g, "")}.png`
+      ),
       base64Data,
       "base64"
     );
