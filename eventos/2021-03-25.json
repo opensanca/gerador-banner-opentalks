@@ -1,0 +1,18 @@
+{
+  "title": "2021.03 [Online]",
+  "subtitle": "1 - Wordpress e JAMStack\n2 - Gerando TS Types",
+  "date": "25 de Março",
+  "time": "19:00h",
+  "speaker1": {
+    "name": "1 - Mateus",
+    "lastname": "Avila",
+    "company": "Freelancer",
+    "github": "mateusavila"
+  },
+  "speaker2": {
+    "name": "2 - Gabriel",
+    "lastname": "Ferreira",
+    "company": "Arquivei",
+    "github": "gabrielferreiraa"
+  }
+}
