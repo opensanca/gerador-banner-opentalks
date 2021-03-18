@@ -14,6 +14,7 @@ const axios = require("axios");
 const { registerFont, createCanvas, loadImage } = require("canvas");
 const fs = require("fs");
 const path = require("path");
+const QRCode = require('qrcode')
 
 registerFont(
   "./node_modules/@openfonts/montserrat_all/files/montserrat-all-400.woff",
@@ -82,7 +83,7 @@ async function processFiles() {
   for (let i = 0; i < args.length; i++) {
     let rawdata = fs.readFileSync(args[i]);
     let event = JSON.parse(rawdata);
-    const { speaker1, speaker2, date, time, title, subtitle } = event;
+    const { speaker1, speaker2, date, time, title, subtitle, url } = event;
 
     const promises = [
       getUserImage(speaker1.github),
@@ -158,6 +159,12 @@ async function processFiles() {
     // write name / last name 2
     ctx.fillText(speaker1.name, 850, 420);
     ctx.fillText(speaker1.lastname, 850, 455);
+
+
+    // Draw QRCode
+    const canvasQrcode = createCanvas(600, 600);
+    await QRCode.toCanvas(canvasQrcode, url)
+    ctx.drawImage(canvasQrcode, 1280 - canvasQrcode.width, 720 - canvasQrcode.height, canvasQrcode.width, canvasQrcode.height);
 
     // Save image to fs
     const base64Data = canvas

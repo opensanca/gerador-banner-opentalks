@@ -17,6 +17,7 @@
     "@openfonts/montserrat_all": "^1.44.2",
     "axios": "^0.21.0",
     "canvas": "^2.6.1",
-    "cheerio": "^1.0.0-rc.3"
+    "cheerio": "^1.0.0-rc.3",
+    "qrcode": "^1.4.4"
   }
 }
