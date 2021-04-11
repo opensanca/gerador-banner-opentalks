@@ -12,19 +12,11 @@ if (!args.length) {
 const { createSVGWindow } = require("svgdom");
 const $ = require("cheerio");
 const axios = require("axios");
-const window = createSVGWindow();
-const document = window.document;
 const { SVG, registerWindow } = require("@svgdotjs/svg.js");
 const fs = require("fs");
 const path = require("path");
 const { createCanvas, loadImage } = require("canvas");
 const QRCode = require("qrcode");
-
-registerWindow(window, document);
-
-const svgRawdata = fs.readFileSync("./base-evento.svg", "utf-8");
-const canvas = SVG(document.documentElement);
-canvas.svg(svgRawdata);
 
 const IDS = {
   TITULO: "#tspan9598",
@@ -101,57 +93,81 @@ async function processFiles() {
   for (let i = 0; i < args.length; i++) {
     let rawdata = fs.readFileSync(args[i]);
     let event = JSON.parse(rawdata);
-    const { speaker1, speaker2, date, time, title, url } = event;
+    const { speaker1, speaker2, date, time, title, url, templates } = event;
 
-    const promises = [
-      getUserImage(speaker1.github),
-      getUserImage(speaker2.github),
-    ];
+    for (let t = 0; t < templates.length; t++) {
+      const window = createSVGWindow();
+      const document = window.document;
+      registerWindow(window, document);
 
-    const images = await Promise.all(promises);
+      const template = templates[t];
+      console.log(template);
+      const svgRawdata = fs.readFileSync(
+        path.resolve("templates", template),
+        "utf-8"
+      );
+      const canvas = SVG(document.documentElement);
+      canvas.svg(svgRawdata);
 
-    speaker1.githubImg = images[0];
-    speaker2.githubImg = images[1];
+      const options = {
+        width: canvas.find("svg").attr("width")[0],
+        height: canvas.find("svg").attr("height")[0],
+      };
 
-    canvas.find(IDS.TITULO).text(title);
-    canvas.find(IDS.DATE).text(`${date} ${time}`);
+      const promises = [
+        getUserImage(speaker1.github),
+        getUserImage(speaker2.github),
+      ];
 
-    canvas.find(IDS.PALESTRA1.TITULO).text(speaker1.title);
-    canvas
-      .find(IDS.PALESTRA1.IMG)
-      .attr(
-        "xlink:href",
-        "data:image/jpeg;base64," + base64_encode(speaker1.githubImg)
+      const images = await Promise.all(promises);
+
+      speaker1.githubImg = images[0];
+      speaker2.githubImg = images[1];
+
+      canvas.find(IDS.TITULO).text(title);
+      canvas.find(IDS.DATE).text(`${date} ${time}`);
+
+      canvas.find(IDS.PALESTRA1.TITULO).text(speaker1.title);
+      canvas
+        .find(IDS.PALESTRA1.IMG)
+        .attr(
+          "xlink:href",
+          "data:image/jpeg;base64," + base64_encode(speaker1.githubImg)
+        );
+
+      canvas.find(IDS.PALESTRA1.NOME).text(speaker1.fullname);
+      canvas.find(IDS.PALESTRA1.EMPRESA).text("@" + speaker1.company);
+
+      canvas.find(IDS.PALESTRA2.TITULO).text(speaker2.title);
+      canvas
+        .find(IDS.PALESTRA2.IMG)
+        .attr(
+          "xlink:href",
+          "data:image/jpeg;base64," + base64_encode(speaker2.githubImg)
+        );
+
+      canvas.find(IDS.PALESTRA2.NOME).text(speaker2.fullname);
+      canvas.find(IDS.PALESTRA2.EMPRESA).text("@" + speaker2.company);
+
+      // Draw QRCode
+      const canvasQrcode = createCanvas(600, 600);
+      await QRCode.toCanvas(canvasQrcode, url);
+      const QrCode64 = canvasQrcode.toDataURL();
+      canvas.find(IDS.QRCODE).attr("xlink:href", QrCode64);
+
+      const fileOutputPath = `${template}_${date.replace(
+        /(\/| )/g,
+        "-"
+      )}-${time.replace(/:/g, "")}.png`;
+
+      await svgToImage(
+        canvas.svg(),
+        path.resolve(eventos, fileOutputPath),
+        options
       );
 
-    canvas.find(IDS.PALESTRA1.NOME).text(speaker1.fullname);
-    canvas.find(IDS.PALESTRA1.EMPRESA).text("@" + speaker1.company);
-
-    canvas.find(IDS.PALESTRA2.TITULO).text(speaker2.title);
-    canvas
-      .find(IDS.PALESTRA2.IMG)
-      .attr(
-        "xlink:href",
-        "data:image/jpeg;base64," + base64_encode(speaker2.githubImg)
-      );
-
-    canvas.find(IDS.PALESTRA2.NOME).text(speaker2.fullname);
-    canvas.find(IDS.PALESTRA2.EMPRESA).text("@" + speaker2.company);
-
-    // Draw QRCode
-    const canvasQrcode = createCanvas(600, 600);
-    await QRCode.toCanvas(canvasQrcode, url);
-    const QrCode64 = canvasQrcode.toDataURL();
-    canvas.find(IDS.QRCODE).attr("xlink:href", QrCode64);
-
-    const fileOutputPath = `${date.replace(/(\/| )/g, "-")}-${time.replace(
-      /:/g,
-      ""
-    )}.png`;
-
-    await svgToImage(canvas.svg(), path.resolve(eventos, fileOutputPath));
-
-    console.log(`Image for event '${title}' is done`);
+      console.log(`Image for event '${title}' is done`);
+    }
   }
 
   process.exit(0);
@@ -168,8 +184,14 @@ function base64_encode(file) {
   return base64;
 }
 
-async function svgToImage(svgString, filePath) {
-  let img = sharp(Buffer.from(svgString)).extract({left: 0, top: 0, width: 1280, height: 720});
+async function svgToImage(svgString, filePath, options) {
+  console.log(options);
+  let img = sharp(Buffer.from(svgString)).extract({
+    left: 0,
+    top: 0,
+    width: options.width,
+    height: options.height,
+  });
   await img.toFile(filePath);
 }
 
