@@ -1,4 +1,4 @@
-const [node, file, ...args] = process.argv;
+const args = process.argv.splice(2);
 
 // If no arguments are found
 if (!args.length) {
@@ -9,29 +9,47 @@ if (!args.length) {
   process.exit(1);
 }
 
+const { createSVGWindow } = require("svgdom");
 const $ = require("cheerio");
 const axios = require("axios");
-const { registerFont, createCanvas, loadImage } = require("canvas");
+const window = createSVGWindow();
+const document = window.document;
+const { SVG, registerWindow } = require("@svgdotjs/svg.js");
 const fs = require("fs");
 const path = require("path");
-const QRCode = require('qrcode')
+const { createCanvas, loadImage } = require("canvas");
+const QRCode = require("qrcode");
 
-registerFont(
-  "./node_modules/@openfonts/montserrat_all/files/montserrat-all-400.woff",
-  { family: "montserrat-normal" }
-);
+registerWindow(window, document);
 
-registerFont(
-  "./node_modules/@openfonts/montserrat_all/files/montserrat-all-700.woff",
-  { family: "montserrat-bold" }
-);
+const svgRawdata = fs.readFileSync("./base-evento.svg", "utf-8");
+const canvas = SVG(document.documentElement);
+canvas.svg(svgRawdata);
+
+const IDS = {
+  TITULO: "#tspan9598",
+  DATE: "#tspan9598-0",
+  QRCODE: "#image1482-3-6",
+  PALESTRA1: {
+    IMG: "#image1482-3",
+    TITULO: "#tspan9651-3-2",
+    NOME: "#tspan9647-0-2",
+    EMPRESA: "#tspan910-5",
+  },
+  PALESTRA2: {
+    IMG: "#image1482",
+    TITULO: "#tspan9651-3",
+    NOME: "#tspan9647-0",
+    EMPRESA: "#tspan910",
+  },
+};
 
 const cache = ".cache";
 if (!fs.existsSync(cache)) {
   fs.mkdirSync(cache);
 }
 
-const eventos = "eventos";
+const eventos = "imagens";
 if (!fs.existsSync(eventos)) {
   fs.mkdirSync(eventos);
 }
@@ -76,14 +94,14 @@ async function getUserImage(githubHandle) {
   }
 
   // Carregue imagem do cache
-  return loadImage(cached);
+  return cached;
 }
 
 async function processFiles() {
   for (let i = 0; i < args.length; i++) {
     let rawdata = fs.readFileSync(args[i]);
     let event = JSON.parse(rawdata);
-    const { speaker1, speaker2, date, time, title, subtitle, url } = event;
+    const { speaker1, speaker2, date, time, title, url } = event;
 
     const promises = [
       getUserImage(speaker1.github),
@@ -95,95 +113,64 @@ async function processFiles() {
     speaker1.githubImg = images[0];
     speaker2.githubImg = images[1];
 
-    // Load images
-    const backgroundImg = await loadImage("./background.png");
+    canvas.find(IDS.TITULO).text(title);
+    canvas.find(IDS.DATE).text(`${date} ${time}`);
 
-    // Create canvas image
-    const canvas = createCanvas(1280, 720);
-    const ctx = canvas.getContext("2d");
+    canvas.find(IDS.PALESTRA1.TITULO).text(speaker1.title);
+    canvas
+      .find(IDS.PALESTRA1.IMG)
+      .attr(
+        "xlink:href",
+        "data:image/jpeg;base64," + base64_encode(speaker1.githubImg)
+      );
 
-    // Draw background
-    ctx.save();
-    ctx.drawImage(backgroundImg, 0, 0, 1280, 720);
-    // ctx.globalCompositeOperation='difference';
-    // ctx.fillStyle = "white";
-    // ctx.globalAlpha = 1;
-    // ctx.fillRect(0, 0, 1280, 720);
-    ctx.restore();
+    canvas.find(IDS.PALESTRA1.NOME).text(speaker1.fullname);
+    canvas.find(IDS.PALESTRA1.EMPRESA).text("@" + speaker1.company);
 
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(850, 280, 140, 0, Math.PI * 2);
-    // ctx.strokeStyle = "#f00";
-    // ctx.stroke();
-    ctx.clip();
-    ctx.drawImage(speaker1.githubImg, 710, 140, 280, 280);
-    ctx.restore();
+    canvas.find(IDS.PALESTRA2.TITULO).text(speaker2.title);
+    canvas
+      .find(IDS.PALESTRA2.IMG)
+      .attr(
+        "xlink:href",
+        "data:image/jpeg;base64," + base64_encode(speaker2.githubImg)
+      );
 
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(1090, 180, 140, 0, Math.PI * 2);
-    // ctx.strokeStyle = "#f00";
-    // ctx.stroke();
-    ctx.clip();
-    ctx.drawImage(speaker2.githubImg, 950, 40, 280, 280);
-    ctx.restore();
-
-    // texts
-    ctx.fillStyle = "#4c7861";
-    ctx.textBaseline = "top";
-
-    // Write title
-    ctx.font = "41px montserrat-bold";
-    ctx.fillText(title, 205, 185);
-    // write date and time
-    ctx.fillText(date, 250, 340);
-    ctx.fillText(time, 250, 385);
-
-    // Write subtitle
-    ctx.font = "38px montserrat-normal";
-    ctx.fillText(subtitle, 205, 235);
-
-    ctx.textAlign = "center";
-    // write company 1
-    ctx.font = "28px montserrat-bold";
-    ctx.fillText("@" + speaker2.company, 1090, 395);
-    // write company 2
-    ctx.fillText("@" + speaker1.company, 850, 495);
-
-    // write name / last name 1
-    ctx.fillStyle = "#000000";
-    ctx.font = "35px montserrat-bold";
-    ctx.fillText(speaker2.name, 1090, 320);
-    ctx.fillText(speaker2.lastname, 1090, 355);
-    // write name / last name 2
-    ctx.fillText(speaker1.name, 850, 420);
-    ctx.fillText(speaker1.lastname, 850, 455);
-
+    canvas.find(IDS.PALESTRA2.NOME).text(speaker2.fullname);
+    canvas.find(IDS.PALESTRA2.EMPRESA).text("@" + speaker2.company);
 
     // Draw QRCode
     const canvasQrcode = createCanvas(600, 600);
-    await QRCode.toCanvas(canvasQrcode, url)
-    ctx.drawImage(canvasQrcode, 1280 - canvasQrcode.width, 720 - canvasQrcode.height, canvasQrcode.width, canvasQrcode.height);
+    await QRCode.toCanvas(canvasQrcode, url);
+    const QrCode64 = canvasQrcode.toDataURL();
+    canvas.find(IDS.QRCODE).attr("xlink:href", QrCode64);
 
-    // Save image to fs
-    const base64Data = canvas
-      .toDataURL("image/png")
-      .replace(/^data:image\/png;base64,/, "");
+    const fileOutputPath = `${date.replace(/(\/| )/g, "-")}-${time.replace(
+      /:/g,
+      ""
+    )}.png`;
 
-    fs.writeFileSync(
-      path.resolve(
-        eventos,
-        `${date.replace(/(\/| )/g, "-")}-${time.replace(/:/g, "")}.png`
-      ),
-      base64Data,
-      "base64"
-    );
+    await svgToImage(canvas.svg(), path.resolve(eventos, fileOutputPath));
 
     console.log(`Image for event '${title}' is done`);
   }
 
   process.exit(0);
+}
+
+const sharp = require("sharp");
+
+function base64_encode(file) {
+  // read binary data
+  var bitmap = fs.readFileSync(file);
+  // convert binary data to base64 encoded string
+  const base64 = new Buffer.from(bitmap).toString("base64");
+
+  return base64;
+}
+
+async function svgToImage(svgString, filePath) {
+  let img = sharp(Buffer.from(svgString));
+  await img.toFile(filePath);
 }
 
 processFiles();

@@ -1,0 +1,18 @@
+{
+  "title": "OPENTALKS",
+  "date": "28/04",
+  "time": "20:00",
+  "url": "https://opensanca.com.br",
+  "speaker1": {
+    "title": "Apresentacao 1",
+    "fullname": "Apresentador Sobrenome",
+    "company": "Empresa",
+    "github": "marcel0ll"
+  },
+  "speaker2": {
+    "title": "Apresentacao 1",
+    "fullname": "Apresentador Sobrenome",
+    "company": "Empresa",
+    "github": "samuelgrigolato"
+  }
+}

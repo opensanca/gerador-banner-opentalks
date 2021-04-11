@@ -4,7 +4,7 @@
   "description": "Um gerador de banners para Opentalk",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js test.json"
+    "test": "node index.js eventos/example.json"
   },
   "keywords": [
     "banner",
@@ -14,10 +14,12 @@
   "author": "marcel0ll<marcelo@lotuz.dev>",
   "license": "MIT",
   "dependencies": {
-    "@openfonts/montserrat_all": "^1.44.2",
+    "@svgdotjs/svg.js": "^3.0.16",
     "axios": "^0.21.0",
     "canvas": "^2.6.1",
     "cheerio": "^1.0.0-rc.3",
-    "qrcode": "^1.4.4"
+    "qrcode": "^1.4.4",
+    "sharp": "^0.28.1",
+    "svgdom": "^0.1.8"
   }
 }
