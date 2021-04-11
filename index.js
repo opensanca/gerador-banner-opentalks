@@ -169,7 +169,7 @@ function base64_encode(file) {
 }
 
 async function svgToImage(svgString, filePath) {
-  let img = sharp(Buffer.from(svgString));
+  let img = sharp(Buffer.from(svgString)).extract({left: 0, top: 0, width: 1280, height: 720});
   await img.toFile(filePath);
 }
 
