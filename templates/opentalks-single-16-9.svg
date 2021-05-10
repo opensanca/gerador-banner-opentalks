@@ -441,9 +441,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="317.33938"
-     inkscape:cy="469.04149"
+     inkscape:zoom="0.7"
+     inkscape:cx="545.67804"
+     inkscape:cy="265.1148"
      inkscape:document-units="px"
      inkscape:current-layer="layer4"
      inkscape:document-rotation="0"
@@ -466,7 +466,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -552,10 +552,10 @@
        cy="249.57831"
        r="8.9020977" />
     <circle
-       style="display:inline;fill:#62997b;fill-opacity:1;stroke:none;stroke-width:6.04787;stop-color:#000000"
+       style="display:inline;fill:#62997b;fill-opacity:1;stroke:none;stroke-width:6.04787016"
        id="path1130-2"
-       cx="334.27115"
-       cy="470.59027"
+       cx="321.13916"
+       cy="571.60553"
        r="14.239046" />
     <circle
        style="display:inline;fill:#62997b;fill-opacity:1;stroke:none;stroke-width:5.95378;stop-color:#000000"
@@ -588,10 +588,10 @@
        cy="165.68658"
        r="8.9020977" />
     <circle
-       style="display:inline;fill:#62997b;fill-opacity:1;stroke:none;stroke-width:3.78106;stop-color:#000000"
+       style="display:inline;fill:#62997b;fill-opacity:1;stroke:none;stroke-width:3.78105998"
        id="path1130-3-6-5"
-       cx="717.55267"
-       cy="416.54184"
+       cx="721.59326"
+       cy="498.3642"
        r="8.9020977" />
     <circle
        style="display:inline;fill:#4c7861;fill-opacity:1;stroke:none;stroke-width:8.80329;stop-color:#000000"
@@ -600,10 +600,10 @@
        cy="351.65317"
        r="20.726364" />
     <circle
-       style="display:inline;fill:#4c7861;fill-opacity:1;stroke:none;stroke-width:6.27406;stop-color:#000000"
+       style="display:inline;fill:#4c7861;fill-opacity:1;stroke:none;stroke-width:6.27405977"
        id="path1130-6"
-       cx="687.9729"
-       cy="441.62537"
+       cx="691.00336"
+       cy="530.5188"
        r="14.771632" />
     <circle
        style="display:inline;fill:#4c7861;fill-opacity:1;stroke:none;stroke-width:8.80329;stop-color:#000000"
