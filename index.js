@@ -22,18 +22,21 @@ const IDS = {
   TITULO: "#tspan9598",
   DATE: "#tspan9598-0",
   QRCODE: "#image1482-3-6",
-  PALESTRA1: {
+  PALESTRAS: [
+  {
+    id: 1,
     IMG: "#image1482-3",
     TITULO: "#tspan9651-3-2",
     NOME: "#tspan9647-0-2",
     EMPRESA: "#tspan910-5",
   },
-  PALESTRA2: {
+  {
+    id: 2,
     IMG: "#image1482",
     TITULO: "#tspan9651-3",
     NOME: "#tspan9647-0",
     EMPRESA: "#tspan910",
-  },
+  }],
 };
 
 const cache = ".cache";
@@ -93,7 +96,7 @@ async function processFiles() {
   for (let i = 0; i < args.length; i++) {
     let rawdata = fs.readFileSync(args[i]);
     let event = JSON.parse(rawdata);
-    const { speaker1, speaker2, date, time, title, url, templates } = event;
+    const { speakers, date, time, title, url, templates } = event;
 
     for (let t = 0; t < templates.length; t++) {
       const window = createSVGWindow();
@@ -114,40 +117,25 @@ async function processFiles() {
         height: canvas.find("svg").attr("height")[0],
       };
 
-      const promises = [
-        getUserImage(speaker1.github),
-        getUserImage(speaker2.github),
-      ];
+      const promises = speakers.map(speaker => getUserImage(speaker.github))
 
       const images = await Promise.all(promises);
-
-      speaker1.githubImg = images[0];
-      speaker2.githubImg = images[1];
 
       canvas.find(IDS.TITULO).text(title);
       canvas.find(IDS.DATE).text(`${date} ${time}`);
 
-      canvas.find(IDS.PALESTRA1.TITULO).text(speaker1.title);
-      canvas
-        .find(IDS.PALESTRA1.IMG)
-        .attr(
-          "xlink:href",
-          "data:image/jpeg;base64," + base64_encode(speaker1.githubImg)
-        );
-
-      canvas.find(IDS.PALESTRA1.NOME).text(speaker1.fullname);
-      canvas.find(IDS.PALESTRA1.EMPRESA).text("@" + speaker1.company);
-
-      canvas.find(IDS.PALESTRA2.TITULO).text(speaker2.title);
-      canvas
-        .find(IDS.PALESTRA2.IMG)
-        .attr(
-          "xlink:href",
-          "data:image/jpeg;base64," + base64_encode(speaker2.githubImg)
-        );
-
-      canvas.find(IDS.PALESTRA2.NOME).text(speaker2.fullname);
-      canvas.find(IDS.PALESTRA2.EMPRESA).text("@" + speaker2.company);
+      speakers.forEach((speaker, index) => {
+        canvas.find(IDS.PALESTRAS[index].TITULO).text(speakers[index].title);
+        canvas
+          .find(IDS.PALESTRAS[index].IMG)
+          .attr(
+            "xlink:href",
+            "data:image/jpeg;base64," + base64_encode(images[index])
+          );
+  
+        canvas.find(IDS.PALESTRAS[index].NOME).text(speakers[index].fullname);
+        canvas.find(IDS.PALESTRAS[index].EMPRESA).text("@" + speakers[index].company);          
+      });
 
       // Draw QRCode
       const canvasQrcode = createCanvas(600, 600);

@@ -1,9 +1,8 @@
 # Gerador de banners para Opentalk
 
-Esse é um projeto em node.js v14.3.0
-
-Instale as dependências
+- Instale as dependências com `npm install`
+- Instale as fontes de fonts.zip na sua máquina 
 
 ## Como usar
 
-`node index.js ./test.json [./outro.json [...]]`
+`node index.js ./test.json`
