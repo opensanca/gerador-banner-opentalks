@@ -83,7 +83,7 @@
            r="37.803978"
            cy="150.48938"
            cx="67.710907"
-           id="circle147"
+           id="circle151"
            style="fill:#00ff00;fill-opacity:1;stroke:#808080;stroke-width:1.60000002" />
       </g>
     </clipPath>
@@ -446,8 +446,8 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="70.714286"
-     inkscape:cy="237.14778"
+     inkscape:cx="307.91888"
+     inkscape:cy="477.14778"
      inkscape:document-units="px"
      inkscape:current-layer="layer4"
      inkscape:document-rotation="0"
@@ -470,7 +470,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -532,22 +532,22 @@
        style="display:inline;fill:#4c7861;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.12986"
        id="path953-3-5" />
     <circle
-       style="display:inline;fill:#62997b;fill-opacity:1;stroke:none;stroke-width:3.78105998"
+       style="display:inline;fill:#62997b;fill-opacity:1;stroke:none;stroke-width:3.78106;stop-color:#000000"
        id="path1130-3-6"
-       cx="304.95529"
-       cy="179.57831"
+       cx="119.241"
+       cy="249.57831"
        r="8.9020977" />
     <circle
        style="display:inline;fill:#62997b;fill-opacity:1;stroke:none;stroke-width:6.04787016"
        id="path1130-2"
        cx="337.1283"
-       cy="520.59027"
+       cy="524.87598"
        r="14.239046" />
     <circle
-       style="display:inline;fill:#62997b;fill-opacity:1;stroke:none;stroke-width:5.95378017"
+       style="display:inline;fill:#62997b;fill-opacity:1;stroke:none;stroke-width:5.95378;stop-color:#000000"
        id="path1130-3-6-9"
-       cx="114.91319"
-       cy="216.7114"
+       cx="87.770332"
+       cy="228.13997"
        r="14.017616" />
     <circle
        style="display:inline;fill:#4c7861;fill-opacity:1;stroke:none;stroke-width:4.82287;stop-color:#000000"
@@ -598,15 +598,15 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:ultra-condensed;font-size:96.0099px;font-family:Antonio;-inkscape-font-specification:'Antonio Ultra-Condensed';stroke-width:1.0001">Opentalks</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:ultra-condensed;font-size:64.00650024px;line-height:1.25;font-family:Antonio;-inkscape-font-specification:'Antonio Ultra-Condensed';letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.00010002"
-       x="372.07974"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:ultra-condensed;font-size:64.0065px;line-height:1.25;font-family:Antonio;-inkscape-font-specification:'Antonio Ultra-Condensed';letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.0001"
+       x="419.2226"
        y="103.46913"
        id="text9600-7"><tspan
          sodipodi:role="line"
          id="tspan9598-0"
-         x="372.07974"
+         x="419.2226"
          y="103.46913"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:ultra-condensed;font-size:64.00650024px;font-family:Antonio;-inkscape-font-specification:'Antonio Ultra-Condensed';stroke-width:1.00010002">00/00 00:00</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:ultra-condensed;font-size:64.0065px;font-family:Antonio;-inkscape-font-specification:'Antonio Ultra-Condensed';stroke-width:1.0001">00/00 00:00</tspan></text>
     <g
        id="g1114"
        transform="matrix(1.4030989,0,0,1.4030989,186.25817,699.83555)"
@@ -662,7 +662,7 @@
     </g>
     <g
        id="g9727-2-7"
-       transform="matrix(2.8794405,0,0,2.8794405,-0.6233697,147.33605)">
+       transform="matrix(2.8794405,0,0,2.8794405,-17.766227,138.76463)">
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329964px;line-height:1.25;font-family:montserrat;-inkscape-font-specification:montserrat;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458299"
@@ -700,7 +700,7 @@
     <g
        id="g1380-2"
        clip-path="url(#clipPath1382-6-1)"
-       transform="matrix(2.8794405,0,0,2.8794405,-82.569002,-105.60723)">
+       transform="matrix(2.8794405,0,0,2.8794405,-68.283288,-92.750095)">
       <g
          inkscape:label="Clip"
          id="g1378-8">

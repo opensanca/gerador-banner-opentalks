@@ -1,0 +1,21 @@
+{
+  "templates": ["opentalks-duo-16-9.svg", "opentalks-duo-1-1.svg"],
+  "title": "OPENTALKS",
+  "date": "29/04",
+  "time": "20:00",
+  "url": "https://www.meetup.com/opensanca/events/277509005/",
+  "speakers": [
+    {
+      "title": "Wordpress e JAMStack",
+      "fullname": "Mateus Avila",
+      "company": "Freelancer",
+      "github": "mateusavila"
+    },
+    {
+      "title": "Arquitetura de apps Vue3",
+      "fullname": "Fábio Vedovelli",
+      "company": "Keylight",
+      "github": "vedovelli"
+    }
+  ]
+}
