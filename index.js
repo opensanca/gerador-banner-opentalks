@@ -143,16 +143,24 @@ async function processFiles() {
       const QrCode64 = canvasQrcode.toDataURL();
       canvas.find(IDS.QRCODE).attr("xlink:href", QrCode64);
 
-      const fileOutputPath = `${template}_${date.replace(
-        /(\/| )/g,
-        "-"
-      )}-${time.replace(/:/g, "")}.png`;
+      const dateString =  date.replace(/(\/| )/g,"-");
+      const fileOutputPath = `${template}-${time.replace(/:/g, "")}`;
+
+      const eventPath = path.resolve(eventos, dateString);
+
+      if (!fs.existsSync(eventPath)) {
+        fs.mkdirSync(eventPath);
+      }
+
+      const svg = canvas.svg();
 
       await svgToImage(
-        canvas.svg(),
-        path.resolve(eventos, fileOutputPath),
+        svg,
+        path.resolve(eventPath, `${fileOutputPath}.png`),
         options
       );
+
+      fs.writeFileSync(path.resolve(eventPath, `${fileOutputPath}.svg`), svg, "utf-8");
 
       console.log(`Image for event '${title}' is done`);
     }
