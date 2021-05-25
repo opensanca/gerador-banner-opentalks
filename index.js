@@ -160,7 +160,7 @@ async function processFiles() {
         options
       );
 
-      fs.writeFileSync(path.resolve(eventPath, `${fileOutputPath}.svg`), svg, "utf-8");
+      fs.writeFileSync(path.resolve(eventPath, `${fileOutputPath}.svg`), canvas.findOne('svg svg').svg(), "utf-8");
 
       console.log(`Image for event '${title}' is done`);
     }
