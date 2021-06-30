@@ -134,7 +134,7 @@ async function processFiles() {
           );
   
         canvas.find(IDS.PALESTRAS[index].NOME).text(speakers[index].fullname);
-        canvas.find(IDS.PALESTRAS[index].EMPRESA).text("@" + speakers[index].company);          
+        canvas.find(IDS.PALESTRAS[index].EMPRESA).text(speakers[index].company ? "@" + speakers[index].company : "");          
       });
 
       // Draw QRCode
