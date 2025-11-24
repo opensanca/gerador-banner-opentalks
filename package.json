@@ -15,11 +15,11 @@
   "license": "MIT",
   "dependencies": {
     "@svgdotjs/svg.js": "^3.0.16",
-    "axios": "^0.21.0",
-    "canvas": "^2.6.1",
+    "axios": "^1.13.2",
+    "canvas": "^3.2.0",
     "cheerio": "^1.0.0-rc.3",
     "qrcode": "^1.4.4",
-    "sharp": "^0.28.1",
+    "sharp": "^0.34.5",
     "svgdom": "^0.1.8"
   }
 }

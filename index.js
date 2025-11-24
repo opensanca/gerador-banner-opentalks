@@ -10,7 +10,7 @@ if (!args.length) {
 }
 
 const { createSVGWindow } = require("svgdom");
-const $ = require("cheerio");
+const cheerio = require("cheerio");
 const axios = require("axios");
 const { SVG, registerWindow } = require("@svgdotjs/svg.js");
 const fs = require("fs");
@@ -71,7 +71,7 @@ async function getUserImage(githubHandle) {
 
   // Se não tiver handle, use imagem de fallback
   if (!githubHandle || githubHandle === "") {
-    return loadImage("./desconhecido.png");
+    return "./desconhecido.png";
   }
 
   // Se imagem não estiver no cache, minere ela do github e coloque em cache
@@ -84,7 +84,8 @@ async function getUserImage(githubHandle) {
       }
     );
 
-    imgUrl = $(".avatar.avatar-user", result.data).attr("src");
+    const $ = cheerio.load(result.data);
+    imgUrl = $(".avatar.avatar-user").attr("src");
     await downloadImage(imgUrl, cached);
   }
 
